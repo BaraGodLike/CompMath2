@@ -63,7 +63,7 @@ class ViewService:
         print("0 - консоль")
         print("1 - файл")
         mode_output = input("Выберите способ вывода данных: ")
-        if not mode_output in ["0", "1"]:
+        if mode_output not in ["0", "1"]:
             raise ValueError("Недействительный способ вывода")
 
         self.mode_output = int(mode_output)
@@ -93,6 +93,9 @@ class ViewService:
         if not file_[3] in ["0", "1"]:
             raise ValueError("Недействительный способ вывода")
         self.mode_output = int(file_[3])
+
+        if float(file_[1]) <= float(file_[0]):
+            raise ValueError("Недопустимые границы интервала!")
 
         return tuple(map(float, file_[:3]))
 
