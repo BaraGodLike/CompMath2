@@ -20,7 +20,6 @@ class SimpleIterationMethod:
         maxi = max(abs(self.phi_prime(x)) for x in line)
         if maxi >= 1:
             raise Exception(f"Достаточное условие сходимости не выполнено: max|phi'(x)| = {maxi:.4f} >= 1")
-        return True
 
     def choose_initial(self):
         """Выбор начального приближения"""
@@ -28,8 +27,7 @@ class SimpleIterationMethod:
 
     def solve(self):
         """Основной метод класса"""
-        if not (self.check_convergence_condition()):
-            return
+        self.check_convergence_condition()
 
         x_i = self.choose_initial()
         for i in range(1, self.max_iter + 1):
