@@ -22,7 +22,7 @@ class ChordMethod:
         Проверка наличия корня на интервале [a, b].
         Корень существует, если функция меняет знак на концах интервала.
         """
-        if self.func(self.a) * self.func(self.b) > 0:
+        if self.f(self.a) * self.f(self.b) > 0:
             raise ValueError("На интервале нет корня или их несколько.")
         return True
 
@@ -44,15 +44,19 @@ class ChordMethod:
 
         while iterations < self.max_iter:
             # Вычисление нового приближения
-            f_a = self.func(a)
-            f_b = self.func(b)
+            f_a = self.f(a)
+            f_b = self.f(b)
             x_0 = a - ((b - a) / (f_b - f_a)) * f_a
+
             # Проверка условия сходимости
-            if abs(self.func(x_0)) < self.tol:
-                return x_0, self.func(x_0), iterations
+            if abs(self.f(x_0)) < self.tol:
+                self.root = x_0
+                self.iterations = iterations
+                self.error = abs(self.f(x_0))
+                return x_0, self.f(x_0), iterations
 
             # Обновление границ
-            if self.func(x_0) * self.func(a) < 0:
+            if self.f(x_0) * self.f(a) < 0:
                 b = x_0
             else:
                 a = x_0
@@ -68,7 +72,7 @@ class ChordMethod:
         :param num_points: Количество точек для построения графика.
         """
         x_vals = np.linspace(self.a, self.b, num_points)
-        y_vals = [self.func(x) for x in x_vals]
+        y_vals = [self.f(x) for x in x_vals]
 
         plt.figure(figsize=(8, 6))
         plt.plot(x_vals, y_vals, label="f(x)")
