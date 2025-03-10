@@ -2,6 +2,7 @@ import math
 import matplotlib.pyplot as plt
 from matplotlib import cm
 import numpy as np
+from NewtonMethod import NewtonMethod
 # Функция для отрисовки графика системы уравнений и отметки решения
 def plot_system_with_solution(system, solution):
     # Создаем сетку значений
